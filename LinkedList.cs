@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LinkedL
 {
-    class LinkedList<T> : ILinkedList<T> where T : Person 
+    class LinkedList<T> : ILinkedList<T> where T : Person
     {
         Cell<T> Head { get; set; }
         Cell<T> Tail { get; set; }
@@ -47,21 +47,29 @@ namespace LinkedL
 
         public void RemoveLast()
         {
+            if (Tail.PreviousCell == null)
+                Head = null;
             Tail = Tail.PreviousCell;
-            Tail.NextCell = null;
+            if (Tail != null)
+                Tail.NextCell = null;
             Count--;
         }
 
         public void LinkedListInfo()
         {
-            var variable = Head;
-            PrintConsole(variable.Data.ToString());
-            variable = Head.NextCell;
-            for (int i = 1; i < Count; i++)
+            if (Head != null)
             {
+                var variable = Head;
                 PrintConsole(variable.Data.ToString());
-                variable = variable.NextCell;
+                variable = Head.NextCell;
+                for (int i = 1; i < Count; i++)
+                {
+                    PrintConsole(variable.Data.ToString());
+                    variable = variable.NextCell;
+                }
             }
+            else
+                PrintConsole("Linked List does not exist");
         }
 
         void PrintConsole(string data)
@@ -69,6 +77,62 @@ namespace LinkedL
             Console.WriteLine(data);
         }
 
-        
+        public void RemoveAt()
+        {
+            if (Count > 0)
+            {
+                int number = 0;
+                bool b = true;
+                while (b)
+                {
+                    Console.WriteLine("Enter index(0 - {0}):", (Count - 1));
+                    string str = Console.ReadLine();
+                    bool success = Int32.TryParse(str, out number);
+                    if (success)
+                    {
+                        if (number >= 0 && number <= Count - 1)
+                        {
+                            b = false;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid input.");
+                        }
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Enter index(0 - {0}):", (Count - 1));
+                    }
+                }
+
+                if (number == 0)
+                {
+                    RemoveFirst();
+                }
+                else if (number == Count - 1)
+                {
+                    RemoveLast();
+                }
+                else
+                {
+                    var variable = Head;
+
+                    for (int i = 0; i < Count; i++)
+                    {
+                        var variableNext = Head.NextCell;
+                        if(i + 1 == number)
+                        {
+                            variable.NextCell = variableNext.NextCell;
+                            variableNext.NextCell.PreviousCell = variableNext.PreviousCell;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Linked List does not exist");
+            }
+        }
     }
 }

@@ -14,7 +14,9 @@ namespace LinkedL
             linkedList.Add(new Student("Student1", 20));
             linkedList.Add(new Student("Student2", 24));
             linkedList.Add(new Student("Student3", 25));
-            linkedList.Add(new Student("Student4", 27));
+            linkedList.Add(new Student("Student4", 23));
+            linkedList.Add(new Student("Student5", 21));
+            linkedList.Add(new Student("Student6", 22));
             linkedList.LinkedListInfo();
             Console.WriteLine();
 
@@ -26,11 +28,14 @@ namespace LinkedL
             linkedList.LinkedListInfo();
             Console.WriteLine();
 
-            linkedList.Add(new Student("Student5", 22));
+            linkedList.Add(new Student("Student7", 22));
             linkedList.LinkedListInfo();
             Console.WriteLine();
 
             linkedList.RemoveLast();
+            linkedList.LinkedListInfo();
+
+            linkedList.RemoveAt();
             linkedList.LinkedListInfo();
 
             Console.ReadKey();
