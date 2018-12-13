@@ -125,6 +125,8 @@ namespace LinkedL
                         {
                             variable.NextCell = variableNext.NextCell;
                             variableNext.NextCell.PreviousCell = variableNext.PreviousCell;
+                            Count--;
+                            break;
                         }
                     }
                 }
